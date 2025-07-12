@@ -70,6 +70,10 @@
         <input type="text" id="jugador7" placeholder="Jugador 8">
         <input type="text" id="jugador8" placeholder="Jugador 9">
         <input type="text" id="jugador9" placeholder="Jugador 10">
+        <input type="text" id="jugador10" placeholder="Jugador 11">
+        <input type="text" id="jugador11" placeholder="Jugador 12">
+        <input type="text" id="jugador12" placeholder="Jugador 13">
+        <input type="text" id="jugador13" placeholder="Jugador 14">
       </div>
       <br>
       <button type="submit">Iniciar Juego 🎮</button>
@@ -249,7 +253,7 @@
       event.preventDefault();
       jugadores = [];
 
-      for (let i = 0; i < 10; i++) {
+      for (let i = 0; i < 14; i++) {
         const nombre = document.getElementById("jugador" + i).value.trim();
         if (nombre) {
           jugadores.push({ nombre: nombre, puntos: 0 });
