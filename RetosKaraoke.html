@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reto de Karaoke Aleatorio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 50px;
+      background: #fff8e1;
+    }
+    #reto {
+      font-size: 1.5em;
+      margin: 30px auto;
+      padding: 20px;
+      border: 2px dashed #ff6f00;
+      background-color: #fff3e0;
+      max-width: 600px;
+      min-height: 100px;
+    }
+    button {
+      padding: 10px 20px;
+      font-size: 1.2em;
+      background-color: #ff9800;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #f57c00;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>🎤 ¡Reto de Karaoke!</h1>
+  <div id="reto">Haz clic en el botón para obtener un reto</div>
+  <button onclick="mostrarReto()">Obtener reto aleatorio</button>
+
+  <script>
+    const retos = [
+      "001. [Actuación] Canta como si estuvieras llorando desconsoladamente.",
+      "002. [Actuación] Interpreta la canción como si fuera una escena de telenovela.",
+      "003. [Actuación] Imita a Shakira mientras cantas.",
+      "004. [Actuación] Canta como si fueras un robot.",
+      "005. [Actuación] Interpreta como si estuvieras muy enojado(a).",
+      "006. [Actuación] Haz muecas exageradas con cada frase.",
+      "007. [Actuación] Canta con los ojos cerrados todo el tiempo.",
+      "008. [Actuación] Finge que estás en una audición para “La Voz”.",
+      "009. [Actuación] Mira a alguien como si le estuvieras declarando tu amor.",
+      "010. [Actuación] Canta como si tuvieras mucho sueño.",
+      "011. [Actuación] Interpreta como si fueras un narrador dramático.",
+      "012. [Actuación] Canta como si estuvieras en una pelea de pareja.",
+      "013. [Actuación] Actúa como si fuera parte de una película de acción.",
+      "014. [Actuación] Hazlo como si cantaras bajo la lluvia.",
+      "015. [Actuación] Imita a un profesor aburrido cantando.",
+      "016. [Estilo y voz] Canta en tono de ópera.",
+      "017. [Estilo y voz] Canta imitando una voz de caricatura.",
+      "018. [Estilo y voz] Haz la canción en versión ranchera.",
+      "019. [Estilo y voz] Cántala como si fuera reguetón lento.",
+      "020. [Estilo y voz] Canta toda la canción en susurros.",
+      "021. [Estilo y voz] Usa voz de niño(a) todo el tiempo.",
+      "022. [Estilo y voz] Cántala con voz grave todo el tiempo.",
+      "023. [Estilo y voz] Hazlo como si fuera una canción de rock pesado.",
+      "024. [Estilo y voz] Solo puedes cantar en falsete.",
+      "025. [Estilo y voz] Cada vez que digas una palabra con “a”, grita.",
+      "026. [Estilo y voz] Canta con voz de abuelita.",
+      "027. [Estilo y voz] Hazlo en estilo de banda mexicana.",
+      "028. [Estilo y voz] Usa voz tipo narrador de documental.",
+      "029. [Estilo y voz] Interpreta como si fueras un locutor de radio.",
+      "030. [Estilo y voz] Canta como si tuvieras hipo.",
+      "031. [Artistas y personajes] Imita a Bad Bunny durante toda la canción.",
+      "032. [Artistas y personajes] Canta como Juan Gabriel (con show incluido).",
+      "033. [Artistas y personajes] Haz una versión a lo Vicente Fernández.",
+      "034. [Artistas y personajes] Imita a Karol G.",
+      "035. [Artistas y personajes] Hazlo como si fueras Daddy Yankee.",
+      "036. [Artistas y personajes] Imita a Celia Cruz (¡Azúcar!).",
+      "037. [Artistas y personajes] Hazlo como si fueras una estrella K-pop.",
+      "038. [Artistas y personajes] Canta como si fueras un niño en el coro del colegio.",
+      "039. [Artistas y personajes] Imita a Maluma.",
+      "040. [Artistas y personajes] Hazlo como si fueras Rubén Blades.",
+      "041. [Artistas y personajes] Imita a una tía borracha en una fiesta.",
+      "042. [Artistas y personajes] Canta como si fueras un cantante de ópera frustrado.",
+      "043. [Artistas y personajes] Hazlo como si fueras Ricardo Arjona.",
+      "044. [Artistas y personajes] Imita a una banda de rock colombiana.",
+      "045. [Artistas y personajes] Hazlo como si fueras un cantante de vallenato romántico.",
+      "046. [Idiomas y acentos] Canta en inglés (aunque la canción esté en español).",
+      "047. [Idiomas y acentos] Canta con acento mexicano.",
+      "048. [Idiomas y acentos] Canta con acento argentino.",
+      "049. [Idiomas y acentos] Canta con acento paisa.",
+      "050. [Idiomas y acentos] Canta como si fueras español de España.",
+      "051. [Idiomas y acentos] Canta como si fueras brasileño hablando español.",
+      "052. [Idiomas y acentos] Canta imitando un francés que no habla español.",
+      "053. [Idiomas y acentos] Canta una canción en inglés real.",
+      "054. [Idiomas y acentos] Canta como si fueras japonés aprendiendo reguetón.",
+      "055. [Idiomas y acentos] Canta como si fueras italiano y todo fuera una ópera.",
+      "056. [Improvisación y creatividad] Cambia la letra e inventa una nueva sobre comida.",
+      "057. [Improvisación y creatividad] Canta y cuenta una historia falsa sobre tu vida.",
+      "058. [Improvisación y creatividad] Cada 10 segundos, cambia el ritmo.",
+      "059. [Improvisación y creatividad] Inventa un nuevo estribillo para la canción.",
+      "060. [Improvisación y creatividad] Canta usando solo onomatopeyas por 10 segundos.",
+      "061. [Improvisación y creatividad] Haz una versión vallenata aunque no lo sea.",
+      "062. [Improvisación y creatividad] Añade el nombre de alguien en cada estrofa.",
+      "063. [Improvisación y creatividad] Imita el sonido de una banda de mariachis.",
+      "064. [Improvisación y creatividad] Incluye una frase de novela colombiana.",
+      "065. [Improvisación y creatividad] Haz una versión triste de una canción alegre.",
+      "066. [Improvisación y creatividad] Reemplaza una palabra por “empanada”.",
+      "067. [Improvisación y creatividad] Canta como si estuvieras en una iglesia.",
+      "068. [Improvisación y creatividad] Inventa un remix a mitad de canción.",
+      "069. [Improvisación y creatividad] Hazlo como si fueras narrador de fútbol.",
+      "070. [Improvisación y creatividad] Canta y describe la coreografía en voz alta.",
+      "071. [Baile y movimiento] Baila salsa mientras cantas.",
+      "072. [Baile y movimiento] Haz pasos de reguetón durante el coro.",
+      "073. [Baile y movimiento] No puedes dejar de moverte mientras cantas.",
+      "074. [Baile y movimiento] Canta como si estuvieras en una pasarela.",
+      "075. [Baile y movimiento] Cada vez que escuches una palabra clave, da una vuelta.",
+      "076. [Baile y movimiento] Canta mientras haces sentadillas.",
+      "077. [Baile y movimiento] Haz pasos de TikTok durante toda la canción.",
+      "078. [Baile y movimiento] Haz que parezca una escena de fiesta.",
+      "079. [Baile y movimiento] Usa un objeto como micrófono de estrella pop.",
+      "080. [Baile y movimiento] Invita a alguien a bailar contigo mientras cantas.",
+      "081. [En grupo / pareja] Haz un dúo sin mirarse.",
+      "082. [En grupo / pareja] Canta una estrofa y el público otra.",
+      "083. [En grupo / pareja] Canten alternando palabra por palabra.",
+      "084. [En grupo / pareja] Hagan la canción como una discusión.",
+      "085. [En grupo / pareja] Uno canta, otro actúa.",
+      "086. [En grupo / pareja] Cada quien en un estilo diferente.",
+      "087. [En grupo / pareja] Batalla de gallos divertida.",
+      "088. [En grupo / pareja] Imiten dúo famoso (Wisin y Yandel…).",
+      "089. [En grupo / pareja] Uno canta y otro traduce en mímica.",
+      "090. [En grupo / pareja] Canta mientras te hacen preguntas.",
+	        "091. [Nivel extremo] Canta sin ver la letra.",
+      "092. [Nivel extremo] Canta masticando limón.",
+      "093. [Nivel extremo] Canta con globos en la boca (¡cuidado!).",
+      "094. [Nivel extremo] Canta de espaldas al público.",
+      "095. [Nivel extremo] Con la boca llena de agua (¡seguro!).",
+      "096. [Nivel extremo] El público elige la canción.",
+      "097. [Nivel extremo] Canta una que no conozcas.",
+      "098. [Nivel extremo] Si olvidas una palabra, penitencia.",
+      "099. [Nivel extremo] No puedes moverte mientras cantas.",
+      "100. [Nivel extremo] Gafas oscuras, actitud de celebridad.",
+      "101. [Nivel extremo] Canta mientras haces plancha.",
+      "102. [Nivel extremo] Cambia de voz cada 10 segundos.",
+      "103. [Nivel extremo] Da vueltas sobre ti mismo mientras cantas.",
+      "104. [Nivel extremo] Canta acostado en el suelo.",
+      "105. [Nivel extremo] Canta desde otra habitación.",
+      "106. [Nivel extremo] Haz equilibrio con algo en la cabeza.",
+      "107. [Nivel extremo] Canta como si te desmayaras.",
+      "108. [Nivel extremo] Canta sin usar las manos.",
+      "109. [Nivel extremo] Usa objeto aleatorio como micrófono.",
+      "110. [Nivel extremo] Alguien te abanica mientras cantas.",
+      "111. [Nivel extremo] Haz sonidos de animales entre frases.",
+      "112. [Nivel extremo] Canta como si tuvieras miedo.",
+      "113. [Nivel extremo] Canta como si huyeras.",
+      "114. [Nivel extremo] Como si estuvieras en montaña rusa.",
+      "115. [Nivel extremo] No abras mucho la boca.",
+      "116. [Nivel extremo] Imita un instrumento musical.",
+      "117. [Nivel extremo] Canta con los pies en agua.",
+      "118. [Nivel extremo] Canta con acento que elijan.",
+      "119. [Nivel extremo] Como vendedor ambulante.",
+      "120. [Nivel extremo] Como si fuera misa solemne.",
+      "121. [Especiales] Adivina la canción con 'na na na'.",
+      "122. [Especiales] Canta a capella, sin música.",
+      "123. [Especiales] Canta en un idioma distinto.",
+      "124. [Especiales] Elige a alguien para cantar en dúo.",
+      "125. [Especiales] Forma un grupo de 3 personas para cantar.",
+      "126. [Especiales] Cambien la letra en 2 grupos.",
+      "127. [Especiales] Canta una canción de plancha.",
+      "128. [Especiales] Canta una cumbia y báilala también.",
+      "129. [Especiales] Canta una de la hora loca.",
+      "130. [Especiales] Canta una canción de Disney estilo Broadway.",
+      "131. [Especiales] Cambia una palabra graciosa al cantar.",
+      "132. [Especiales] Canta reguetón viejo estilo 2000.",
+      "133. [Especiales] Canta una del 2000–2009.",
+      "134. [Especiales] Canta una anterior a tu año de nacimiento.",
+      "135. [Especiales] Hazlo como en show de talentos.",
+      "136. [Especiales] Canción de telenovela o banda sonora.",
+      "137. [Especiales] Canta canción infantil con seriedad.",
+      "138. [Especiales] Canta canción triste como alegre.",
+      "139. [Especiales] El público elige canción.",
+      "140. [Especiales] Improvisa canción con palabras que te digan.",
+      "141. [Especiales] Canta versión “gritada”.",
+      "142. [Especiales] Repite 3 veces el coro.",
+      "143. [Especiales] Canta mientras alguien intenta hacerte reír.",
+      "144. [Especiales] Canta en cámara lenta.",
+      "145. [Especiales] Canta en versión rápida.",
+      "146. [Especiales] Canta con audífonos (solo tú escuchas).",
+      "147. [Especiales] Canta como ventrílocuo.",
+      "148. [Especiales] Haz versión “hora loca” de canción lenta.",
+      "149. [Especiales] Canta como un personaje de película.",
+      "150. [Especiales] Cuenta hasta 10 entre frases al cantar."
+
+      // Continúa con del 091 al 150...
+    ];
+
+    function mostrarReto() {
+      const indice = Math.floor(Math.random() * retos.length);
+      document.getElementById("reto").innerText = retos[indice];
+    }
+  </script>
+
+</body>
+</html>
