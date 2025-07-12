@@ -1,82 +1,97 @@
+
 <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
-  <title>🎉 Retos de Karaoke 🎤</title>
+  <title>Karaoke Party con Puntaje 🎉</title>
   <style>
     body {
       font-family: 'Comic Sans MS', cursive, sans-serif;
-      text-align: center;
-      padding: 50px;
       background: linear-gradient(135deg, #ffcc70, #ff6f91, #845ec2);
       color: #fff;
-      animation: backgroundMove 20s infinite alternate;
+      text-align: center;
+      padding: 30px;
     }
-
-    @keyframes backgroundMove {
-      0% { background-position: 0% 50%; }
-      100% { background-position: 100% 50%; }
-    }
-
-    h1 {
-      font-size: 3em;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px #000;
-    }
-
+    h1 { font-size: 3em; text-shadow: 2px 2px #000; }
     #reto {
-      font-size: 1.6em;
+      font-size: 1.4em;
       margin: 30px auto;
-      padding: 25px;
+      padding: 20px;
       border: 4px dashed #fff;
       background-color: rgba(0, 0, 0, 0.3);
       max-width: 700px;
       border-radius: 20px;
-      min-height: 120px;
+      min-height: 100px;
     }
-
     button {
-      padding: 15px 30px;
-      font-size: 1.4em;
+      padding: 10px 20px;
+      font-size: 1.2em;
       background-color: #ffde59;
       color: #111;
       border: 3px solid #fff;
-      border-radius: 30px;
+      border-radius: 20px;
+      margin: 5px;
       cursor: pointer;
-      box-shadow: 2px 2px 10px rgba(0,0,0,0.3);
-      transition: 0.2s ease-in-out;
     }
-
-    button:hover {
-      background-color: #f9c80e;
-      transform: scale(1.05);
+    #jugadores input {
+      margin: 5px;
+      padding: 10px;
+      font-size: 1em;
+      width: 200px;
+      border-radius: 10px;
     }
-
-    .emoji {
-      font-size: 2em;
-      margin-bottom: 10px;
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      background-color: rgba(255,255,255,0.1);
     }
-
-    footer {
-      margin-top: 40px;
-      font-size: 0.9em;
-      color: #eee;
+    th, td {
+      padding: 10px 20px;
+      border: 1px solid #fff;
+      font-size: 1.1em;
     }
   </style>
 </head>
 <body>
 
-  <div class="emoji">🎤🎶💃🕺🎉</div>
-  <h1>¡Saca el artista que llevas dentro!</h1>
-  <div id="reto">Haz clic en el botón para recibir un reto de karaoke 🔥</div>
-  <br>
-  <button onclick="mostrarReto()">¡Dame un reto! 🎲</button>
+  <h1>🎤 Retos de Karaoke con Puntaje 🎉</h1>
 
-  <footer>Hecho con amor para fiestas inolvidables como el cumple de Tati💕</footer>
+  <div id="jugadores">
+    <h2>Agrega hasta 10 jugadores</h2>
+    <form onsubmit="iniciarJuego(event)">
+      <div id="camposJugadores">
+        <input type="text" id="jugador0" placeholder="Jugador 1">
+        <input type="text" id="jugador1" placeholder="Jugador 2">
+        <input type="text" id="jugador2" placeholder="Jugador 3">
+        <input type="text" id="jugador3" placeholder="Jugador 4">
+        <input type="text" id="jugador4" placeholder="Jugador 5">
+        <input type="text" id="jugador5" placeholder="Jugador 6">
+        <input type="text" id="jugador6" placeholder="Jugador 7">
+        <input type="text" id="jugador7" placeholder="Jugador 8">
+        <input type="text" id="jugador8" placeholder="Jugador 9">
+        <input type="text" id="jugador9" placeholder="Jugador 10">
+      </div>
+      <br>
+      <button type="submit">Iniciar Juego 🎮</button>
+    </form>
+  </div>
+
+  <div id="panelJuego" style="display:none;">
+    <div id="reto">Haz clic en el botón para obtener un reto 🎲</div>
+    <button onclick="mostrarReto()">Nuevo reto</button>
+
+    <h2>Puntajes</h2>
+    <table id="tablaPuntajes">
+      <thead>
+        <tr><th>Jugador</th><th>Puntos</th><th>Acciones</th></tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
 
   <script>
     const retos = [
-      "001. [Actuación] Canta como si estuvieras llorando desconsoladamente.",
+"001. [Actuación] Canta como si estuvieras llorando desconsoladamente.",
       "002. [Actuación] Interpreta la canción como si fuera una escena de telenovela.",
       "003. [Actuación] Imita a Shakira mientras cantas.",
       "004. [Actuación] Canta como si fueras un robot.",
@@ -226,9 +241,52 @@
       "148. [Especiales] Haz versión “hora loca” de canción lenta.",
       "149. [Especiales] Canta como un personaje de película.",
       "150. [Especiales] Cuenta hasta 10 entre frases al cantar."
-
-      // Continúa con del 091 al 150...
     ];
+
+    let jugadores = [];
+
+    function iniciarJuego(event) {
+      event.preventDefault();
+      jugadores = [];
+
+      for (let i = 0; i < 10; i++) {
+        const nombre = document.getElementById("jugador" + i).value.trim();
+        if (nombre) {
+          jugadores.push({ nombre: nombre, puntos: 0 });
+        }
+      }
+
+      if (jugadores.length === 0) {
+        alert("¡Debes ingresar al menos un jugador!");
+        return;
+      }
+
+      document.getElementById("jugadores").style.display = "none";
+      document.getElementById("panelJuego").style.display = "block";
+      actualizarTabla();
+    }
+
+    function actualizarTabla() {
+      const cuerpo = document.querySelector("#tablaPuntajes tbody");
+      cuerpo.innerHTML = "";
+      jugadores.forEach((j, i) => {
+        const fila = document.createElement("tr");
+        fila.innerHTML = `
+          <td>${j.nombre}</td>
+          <td id="puntos-${i}">${j.puntos}</td>
+          <td>
+            <button onclick="cambiarPuntos(${i}, 1)">+1</button>
+            <button onclick="cambiarPuntos(${i}, -1)">–1</button>
+          </td>
+        `;
+        cuerpo.appendChild(fila);
+      });
+    }
+
+    function cambiarPuntos(index, delta) {
+      jugadores[index].puntos += delta;
+      document.getElementById("puntos-" + index).innerText = jugadores[index].puntos;
+    }
 
     function mostrarReto() {
       const indice = Math.floor(Math.random() * retos.length);
